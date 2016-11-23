@@ -1,0 +1,127 @@
+//
+//  XJDetailCell.m
+//  EveryVideoDay
+//
+//  Created by qianfeng on 16/10/17.
+//  Copyright © 2016年 一杯清火茶. All rights reserved.
+//
+
+#import "XJDetailCell.h"
+
+
+
+
+@implementation XJDetailCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.authorIcon.layer.masksToBounds = true;
+    self.authorIcon.layer.cornerRadius = self.authorIcon.mj_h / 2;
+    self.detailImage.userInteractionEnabled = true;
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(playViedo:)];
+    [self.detailImage addGestureRecognizer:tap];
+}
+
+- (void)playViedo:(UITapGestureRecognizer *)tap{
+    // 创建 player
+    AVPlayerItem * item = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:self.playUrl]];
+    AVPlayerViewController * pvc = [[AVPlayerViewController alloc]init];
+    // 创建播放器
+    AVQueuePlayer * player = [[AVQueuePlayer alloc]initWithItems:@[item]];
+    pvc.player  = player;
+    
+    //代理传值
+    [self.delegate presentPlayerController:pvc];
+    
+    
+}
+
+
+
+- (void)customWithXJItemModel:(XJItemModelDic *)model{
+    
+    [self.detailImage sd_setImageWithURL:[NSURL URLWithString:model.detail]];
+    self.titleL.text = [NSString stringWithFormat:@"     %@",model.title];
+    NSInteger min = model.duration.integerValue / 60; // 分钟
+    NSInteger sec = model.duration.integerValue % 60; // 秒
+    self.categoryL.text = [NSString stringWithFormat:@"     #%@   /  %.2ld'%.2ld''",model.category,min,sec];
+    if(model.author_videoNum.integerValue != 0){
+        [self.authorIcon sd_setImageWithURL:[NSURL URLWithString:model.author_icon]];
+        self.authorName.text = model.author_name;
+        self.authorViedoNum.text = [NSString stringWithFormat:@"%@个视频",model.author_videoNum];
+        self.authorDes.text = model.author_description;
+        
+    }
+    self.DesL.text = model.Description;
+    self.collectionL.text = [NSString stringWithFormat:@"%ld",model.collectionCount.integerValue];
+    self.shareL.text = [NSString stringWithFormat:@"%ld",model.shareCount.integerValue];
+    self.replyL.text  = [NSString stringWithFormat:@"%ld",model.replyCount.integerValue];
+
+    
+}
+
+
+/*
+ //@property (nonatomic, copy) NSString * adTrack;
+ //@property (nonatomic, copy) NSString * author; // 注意
+ //@property (nonatomic, copy) NSString * campaign;
+ @property (nonatomic, copy) NSString * category;
+ @property (nonatomic, copy) NSString * collected;
+ 
+ 
+ @property (nonatomic, copy) NSString * collectionCount;
+ @property (nonatomic, copy) NSString * replyCount;
+ @property (nonatomic, copy) NSString * shareCount;
+ 
+ 
+ @property (nonatomic, copy) NSString * blurred;
+ @property (nonatomic, copy) NSString * detail;
+ @property (nonatomic, copy) NSString * feed;
+ @property (nonatomic, copy) NSString * sharing;
+ 
+ 
+ @property (nonatomic, copy) NSString * dataType;
+ @property (nonatomic, copy) NSString * date;
+ @property (nonatomic, copy) NSString * Description; // 需要修改
+ @property (nonatomic, copy) NSString * duration;
+ //@property (nonatomic, copy) NSString * favoriteAdTrack;
+ @property (nonatomic, copy) NSString * ID; // 需要修改
+ @property (nonatomic, copy) NSString * idx;
+ //@property (nonatomic, copy) NSString * label;
+ //@property (nonatomic, copy) NSString * played;
+ // 省略了 playInfo数组
+ @property (nonatomic, copy) NSString * playUrl;
+ //@property (nonatomic, copy) NSString * promotion;
+ @property (nonatomic, copy) NSString * alias;
+ @property (nonatomic, copy) NSString * icon;
+ @property (nonatomic, copy) NSString * name;
+ 
+ @property (nonatomic, copy) NSString * releaseTime;
+ //@property (nonatomic, copy) NSString * shareAdTrack;
+ // 省略了 tags 数组
+ @property (nonatomic, copy) NSString * title;
+ @property (nonatomic, copy) NSString * Itemtype; //NORMAL
+ //@property (nonatomic, copy) NSString * waterMarks;
+ //@property (nonatomic, copy) NSString * webAdTrack;
+ @property (nonatomic, copy) NSString * forWeibo;
+ @property (nonatomic, copy) NSString * raw;
+ @property (nonatomic, copy) NSString * type; //  videoCollectionWithTitle
+ 
+ 
+ // 针对 author
+ @property (nonatomic, copy) NSString * author_description;
+ @property (nonatomic, copy) NSString * author_icon;
+ @property (nonatomic, copy) NSString * author_id;
+ @property (nonatomic, copy) NSString * author_latestReleaseTime;
+ @property (nonatomic, copy) NSString * author_link;
+ @property (nonatomic, copy) NSString * author_name;
+ @property (nonatomic, copy) NSString * author_videoNum;
+ 
+ // 针对 playInfo
+ @property (nonatomic, strong) NSMutableArray * playInfoArr;
+ // 针对tags
+ @property (nonatomic, strong) NSMutableArray * tagsArr;
+ */
+
+
+@end

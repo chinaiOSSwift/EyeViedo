@@ -1,0 +1,96 @@
+//
+//  HotAuthor+HotAuthorNetWork.m
+//  EveryVideoDay
+//
+//  Created by MS on 16/10/13.
+//  Copyright © 2016年 一杯清火茶. All rights reserved.
+//
+
+#import "HotAuthor+HotAuthorNetWork.h"
+#import "BaseRequest.h"
+
+@implementation HotAuthor (HotAuthorNetWork)
+
++(void)requestHotAuthordata:(void (^)(NSArray *,NSArray *,NSArray *, NSError *))callBack{
+    [BaseRequest getWithURL:@"http://baobab.wandoujia.com/api/v3/tabs/pgcs?_s=67d543014598ddccaf23604fa99cc204&f=iphone&net=wifi&p_product=EYEPETIZER_IOS&u=843e5559476fa559a979a5ed6bee2a88e115cb27&v=2.7.0&vc=1305" para:nil calBack:^(NSData *data, NSError *error) {
+        
+        if (!error) {
+            //解析根目录
+            NSDictionary *obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            //用于存放 - leftAlignTextHeader //左对齐标题
+            NSMutableDictionary *leftAlignTextHeaderDic = [[NSMutableDictionary alloc]init];
+            //
+            NSMutableArray * leftAlignTextHeaderArr = [[NSMutableArray alloc]init];
+            
+            //用于存放 - briefCard //热门作者 全部作者
+            NSMutableDictionary *briefCardDic = [[NSMutableDictionary alloc]init];
+            //
+            NSMutableArray *briefCardArr = [[NSMutableArray alloc]init];
+            
+            //用于存放 - videoCollectionWithBrief //collectionView
+            NSMutableDictionary *videoCollectionWithBriefDic = [[NSMutableDictionary alloc]init];
+            //
+            NSMutableArray *videoCollectionWithBriefArr = [[NSMutableArray alloc]init];
+            
+//            //用于存放 - blankCard // 左对齐标题高度
+//            NSMutableDictionary *blankCardDic = [[NSMutableDictionary alloc]init];
+//            //
+//            NSMutableArray *blankCardArr = [[NSMutableArray alloc]init];
+            
+            //
+            //HotAuthor *authormodel = [[HotAuthor alloc]init];
+//            LeftTextModel * leftextmodel = [[LeftTextModel alloc]init];
+//            Header3Model * header3model = [[Header3Model alloc]init];
+            
+            NSArray *itemListArr = obj[@"itemList"];
+            for (NSDictionary * dict in itemListArr){
+                HotAuthor *authormodel = [[HotAuthor alloc]init];
+                LeftTextModel * leftextmodel = [[LeftTextModel alloc]init];
+                Header3Model * header3model = [[Header3Model alloc]init];
+                if ([dict[@"type"]  isEqualToString: @"leftAlignTextHeader"]) {
+                    [leftAlignTextHeaderDic addEntriesFromDictionary:dict[@"data"]];
+                    //******************
+                    NSDictionary * dataDic = dict[@"data"];
+                    leftextmodel.text = dataDic[@"text"];
+                    [leftAlignTextHeaderArr addObject:leftextmodel];
+                }else if ([dict[@"type"] isEqualToString:@"briefCard"]){
+                    [briefCardDic addEntriesFromDictionary:dict[@"data"]];
+                    //*************
+                    NSDictionary * dataDic = dict[@"data"];
+                    authormodel.Description = dataDic[@"description"];
+                    authormodel.icon = dataDic[@"icon"];
+                    authormodel.subTitle = dataDic[@"subTitle"];
+                    authormodel.title = dataDic[@"title"];
+                    authormodel.Id = dataDic[@"id"];
+                    
+                    [briefCardArr addObject:authormodel];
+                }else if ([dict[@"type"] isEqualToString:@"videoCollectionWithBrief"]){
+                    [videoCollectionWithBriefDic addEntriesFromDictionary:dict[@"data"]];
+                    //************************
+                    NSDictionary * dataDic = dict[@"data"][@"header"];
+                    header3model.actionUrl = dataDic[@"actionUrl"];
+                    header3model.icon = dataDic[@"icon"];//
+                    header3model.Id = dataDic[@"id"];//
+                    header3model.Description = dataDic[@"description"];
+                    header3model.title = dataDic[@"title"];
+                    header3model.subTitle = dataDic[@"subTitle"];
+                    [videoCollectionWithBriefArr addObject:header3model];
+                }
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callBack(briefCardArr,leftAlignTextHeaderArr,videoCollectionWithBriefArr,nil);
+                for(id obj in leftAlignTextHeaderArr){
+                    NSLog(@"eee%@eee",obj);
+                }
+            });
+            
+        }else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callBack(nil,nil,nil,error);
+            });
+        }
+        
+    }];}
+
+@end

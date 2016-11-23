@@ -1,0 +1,22 @@
+//
+//  VideoCollectionModel.h
+//  EveryVideoDay
+//
+//  Created by MS on 16/10/13.
+//  Copyright © 2016年 一杯清火茶. All rights reserved.
+//
+
+#import "JSONModel.h"
+#import "Header3Model.h"
+#import "itemList3dataModel.h"//
+
+
+@interface VideoCollectionModel : JSONModel
+@property (nonatomic,copy) NSString * count;
+@property (nonatomic,retain) NSMutableDictionary * header;//
+@property (nonatomic,retain) NSMutableArray * itemList;
+
+/*
+  */
+
+@end

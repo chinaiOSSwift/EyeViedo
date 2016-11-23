@@ -1,0 +1,72 @@
+//
+//  HomeViewController.m
+//  EveryVideoDay
+//
+//  Created by MS on 16/10/11.
+//  Copyright © 2016年 一杯清火茶. All rights reserved.
+//
+
+#import "HomeViewController.h"
+
+#import "JingXuanViewController.h"
+#import "FindViewController.h"
+#import "AuthorViewController.h"
+#import "MineViewController.h"
+#import "MindDetailViewController.h"
+
+@interface HomeViewController ()
+
+@end
+
+@implementation HomeViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    [self createViewControllers];
+}
+
+/*** 创建4个模块视图控制器 ***/
+-(void)createViewControllers{
+    JingXuanViewController *jingxuan = [[JingXuanViewController alloc]init];
+    FindViewController *find = [[FindViewController alloc]init];
+    AuthorViewController *author = [[AuthorViewController alloc]init];
+    MindDetailViewController *mine = [[MindDetailViewController alloc]init];
+    //4个视图控制器放到一个数组中
+    NSArray *array = @[jingxuan,find,author,mine];
+    //4个视图的标题数组
+    NSArray *titleArray = @[@"热点",@"发现",@"作者",@"我的"];
+    //类方法创建一个可变数组
+    NSMutableArray *viewControllers = [NSMutableArray array];
+    NSInteger i = 0;//控制循环的变量
+    //枚举法遍历数组，父类的指针可以直接指向子类的对象
+    for (BaseViewController *vc in array) {
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+        NSString *title = titleArray[i];
+        //非选中效果的图片，且设置总是显示原色
+        UIImage *image = [[UIImage imageNamed:[NSString stringWithFormat:@"%@",title]]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        //选中效果的图片，且设置总是显示原色
+        UIImage *imageS = [[UIImage imageNamed:[NSString stringWithFormat:@"%@S",title]]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        //创建TabBarItm
+        UITabBarItem * tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:image selectedImage:imageS];
+        //设置图片的偏移量，上下，是一对相反数
+        // tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
+        //设置非选中效果的标题字体和颜色
+        [tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:8],NSForegroundColorAttributeName:[UIColor grayColor]} forState:UIControlStateNormal];
+        [tabBarItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:8],NSForegroundColorAttributeName:[UIColor blackColor]} forState:UIControlStateSelected];
+        //设置导航控制器的tabBarItem
+        nav.tabBarItem = tabBarItem;
+        [viewControllers addObject:nav];
+        i++;
+    }
+    //设置五个模块的根视图控制前显示在TabBarController中
+    self.viewControllers = viewControllers;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+@end

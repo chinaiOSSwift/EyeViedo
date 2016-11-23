@@ -1,0 +1,20 @@
+//
+//  Header3Model.h
+//  EveryVideoDay
+//
+//  Created by MS on 16/10/13.
+//  Copyright © 2016年 一杯清火茶. All rights reserved.
+//
+
+#import "JSONModel.h"
+
+@interface Header3Model : JSONModel
+
+@property (nonatomic,copy) NSString * actionUrl;
+@property (nonatomic,copy) NSString * Description;//康泰...
+@property (nonatomic,copy) NSString * icon;//头像
+@property (nonatomic,copy) NSString * Id;//
+@property (nonatomic,copy) NSString * subTitle;//10个视频
+@property (nonatomic,copy) NSString * title;//作者名
+
+@end

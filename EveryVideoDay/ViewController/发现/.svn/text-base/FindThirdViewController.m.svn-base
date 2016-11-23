@@ -1,0 +1,99 @@
+//
+//  FindThirdViewController.m
+//  EveryVideoDay
+//
+//  Created by qianfeng on 16/10/15.
+//  Copyright © 2016年 一杯清火茶. All rights reserved.
+//
+
+#import "FindThirdViewController.h"
+#import <AVFoundation/AVFoundation.h>
+#import <AVKit/AVKit.h>
+
+@interface FindThirdViewController ()
+
+@end
+
+@implementation FindThirdViewController
+-(NSString *)FTCTitle{
+    if(!_FTCTitle){
+        _FTCTitle = [[NSString alloc]init];
+    }
+    return _FTCTitle;
+}
+-(NSString *)FTCCategory{
+    if(!_FTCCategory){
+        _FTCCategory = [[NSString alloc]init];
+    }
+    return _FTCCategory;
+}
+-(NSString *)FTCReleaseTime{
+    if(!_FTCReleaseTime){
+        _FTCReleaseTime = [[NSString alloc]init];
+    }
+    return _FTCReleaseTime;
+}
+-(NSString *)FTCDescription{
+    if(!_FTCDescription){
+        _FTCDescription = [[NSString alloc]init];
+    }
+    return _FTCDescription;
+}
+-(NSString *)FTCPlayUrl{
+    if(!_FTCPlayUrl){
+        _FTCPlayUrl = [[NSString alloc]init];
+    }
+    return _FTCPlayUrl;
+}
+-(NSString *)FTCblurred{
+    if(!_FTCblurred){
+        _FTCblurred = [[NSString alloc]init];
+    }
+    return _FTCblurred;
+}
+-(NSString *)FTCDetialview{
+    if(!_FTCDetialview){
+        _FTCDetialview = [[NSString alloc]init];
+    }
+    return _FTCDetialview;
+}
+-(NSMutableArray *)imageArray{
+    if (!_imageArray){
+        _imageArray = [[NSMutableArray alloc]init];
+    }
+    return _imageArray;
+}
+-(NSMutableArray *)dataArray{
+    if (!_dataArray){
+        _dataArray = [[NSMutableArray alloc]init];
+    }
+    return _dataArray;
+}-(NSMutableArray *)webArray{
+    if (!_webArray){
+        _webArray = [[NSMutableArray alloc]init];
+    }
+    return _webArray;
+}
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [_BlurredImage sd_setImageWithURL:[NSURL URLWithString:_FTCblurred]];
+    [_DetialView sd_setImageWithURL:[NSURL URLWithString:_FTCDetialview]];
+    _titleLabel.text = _FTCTitle;
+    _categoryLabel.text = _FTCCategory;
+    _releaseTimeLable.text = _FTCReleaseTime;
+    _descriptionLabel.text = _FTCDescription;
+    
+}
+
+- (IBAction)PlayBtn:(UIButton *)sender {
+    AVPlayerViewController * playerVC = [[AVPlayerViewController alloc]init];
+    playerVC.player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:_FTCPlayUrl]];
+    [self.navigationController presentViewController:playerVC animated:true completion:^{
+        [playerVC.player play];
+    }];
+}
+
+
+@end

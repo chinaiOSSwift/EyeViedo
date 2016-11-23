@@ -1,0 +1,149 @@
+//
+//  AuthorViewController.m
+//  EveryVideoDay
+//
+//  Created by MS on 16/10/11.
+//  Copyright © 2016年 一杯清火茶. All rights reserved.
+//
+
+#import "AuthorViewController.h"
+
+#import "HotAuthor+HotAuthorNetWork.h"
+#import "HotAuthor.h"
+
+#import "AuthorCell.h"
+
+@interface AuthorViewController ()<UITableViewDelegate,UITableViewDataSource>
+//
+@property(nonatomic,strong) UITableView * tableView;
+@property (nonatomic,strong) NSMutableArray * authorArray;
+@property (nonatomic,strong) NSMutableArray * videoArray;
+@property (nonatomic,strong) NSMutableArray * leftTextArray;
+//
+@property (nonatomic,strong) UILabel *hotLabel;
+@property (nonatomic,strong) UILabel *updateLabel;
+@property (nonatomic,strong) UILabel *allLabel;
+
+@end
+
+@implementation AuthorViewController
+
+#pragma mark - 懒加载
+-(UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_W, SCREEN_H - 64 - 49) style:UITableViewStylePlain];
+        /*
+         code.... 注册cell
+         */
+        [_tableView registerNib:[UINib nibWithNibName:@"AuthorCell" bundle:nil] forCellReuseIdentifier:@"AuthorCell"];
+        self.tableView.showsVerticalScrollIndicator = NO;//隐藏滚动条
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        [self.view addSubview:_tableView];
+    }
+    return _tableView;
+}
+
+-(NSMutableArray *)authorArray{
+    if (!_authorArray) {
+        _authorArray  = [[NSMutableArray alloc]init];
+    }
+    return _authorArray;
+}
+
+-(UILabel *)hotLabel{
+    if (!_hotLabel) {
+        _hotLabel = [[UILabel alloc]init];
+    }
+    return _hotLabel;
+}
+-(UILabel *)updateLabel{
+    if (!_updateLabel) {
+        _updateLabel = [[UILabel alloc]init];
+        
+    }
+    return _updateLabel;
+}
+-(UILabel *)allLabel{
+    if (!_allLabel) {
+        _allLabel = [[UILabel alloc]init];
+    }
+    return _allLabel;
+}
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self loadData];
+
+}
+
+-(void)loadData{
+    [HotAuthor requestHotAuthordata:^(NSArray *hotAuthorArray, NSArray *leftTextArray, NSArray *videoHeaderArray, NSError *error) {
+        if (error == nil) {
+            //*****
+            [self.authorArray addObjectsFromArray:hotAuthorArray];
+            [self.tableView reloadData];
+            
+            //****
+            [self.leftTextArray addObjectsFromArray:leftTextArray];
+            NSLog(@"%ldmmmmm",leftTextArray.count);
+        }
+    }];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - UITableView 协议方法
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return [self.authorArray count] + [self.leftTextArray count];
+    //return [self.authorArray count];
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    static NSString * cellID = @"AuthorCell";
+    // tableView 是带下划线的
+    AuthorCell *cell = [_tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
+    
+    //*********
+    HotAuthor * model = self.authorArray[indexPath.row];
+    
+    [cell.icon sd_setImageWithURL:[NSURL URLWithString:model.icon]];
+    cell.subTitle.text = model.subTitle;
+    cell.title.text = model.title;
+    cell.Description.text = model.Description;
+    
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 100;
+}
+
+//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    return 50;
+//}
+
+//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    if (section == 0) {
+//        _hotLabel.text = @"caonima";
+//        _hotLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_W, 99)];
+//    }
+//    return _hotLabel;
+//}
+
+
+@end
+
+
+
+
+

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="FindCell">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jFW-ak-VtQ">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#萌宠" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nh5-C3-DUX">
+                        <rect key="frame" x="0.0" y="87" width="200" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="Kjd-wY-KBO"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Nh5-C3-DUX" secondAttribute="trailing" id="0Gr-i8-6pt"/>
+                <constraint firstAttribute="trailing" secondItem="jFW-ak-VtQ" secondAttribute="trailing" id="3Pc-gz-WQR"/>
+                <constraint firstItem="jFW-ak-VtQ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="BWW-t9-NS9"/>
+                <constraint firstItem="Nh5-C3-DUX" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="LeO-F2-02z"/>
+                <constraint firstItem="jFW-ak-VtQ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Rz0-e7-VHK"/>
+                <constraint firstItem="Nh5-C3-DUX" firstAttribute="centerY" secondItem="jFW-ak-VtQ" secondAttribute="centerY" id="cHM-ld-1Jx"/>
+                <constraint firstAttribute="bottom" secondItem="jFW-ak-VtQ" secondAttribute="bottom" id="hiJ-JJ-Rp7"/>
+            </constraints>
+            <connections>
+                <outlet property="imageView" destination="jFW-ak-VtQ" id="8R8-kU-YkL"/>
+                <outlet property="titleLabel" destination="Nh5-C3-DUX" id="KlN-Lg-Tz3"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+</document>

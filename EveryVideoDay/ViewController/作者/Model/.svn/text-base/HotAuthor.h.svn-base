@@ -1,0 +1,19 @@
+//
+//  HotAuthor.h
+//  EveryVideoDay
+//
+//  Created by MS on 16/10/13.
+//  Copyright © 2016年 一杯清火茶. All rights reserved.
+//
+
+#import "JSONModel.h"
+
+@interface HotAuthor : JSONModel
+
+@property (nonatomic,copy) NSString * Description;
+@property (nonatomic,copy) NSString * icon;
+@property (nonatomic,copy) NSString * Id;
+@property (nonatomic,copy) NSString * subTitle;
+@property (nonatomic,copy) NSString * title;
+
+@end

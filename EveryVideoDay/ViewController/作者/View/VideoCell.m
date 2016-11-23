@@ -1,0 +1,30 @@
+//
+//  VideoCell.m
+//  EveryVideoDay
+//
+//  Created by MS on 16/10/17.
+//  Copyright © 2016年 一杯清火茶. All rights reserved.
+//
+
+#import "VideoCell.h"
+#import "AllDataModel.h"
+
+@implementation VideoCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+    self.icon.layer.cornerRadius = self.icon.mj_h / 2;
+    self.icon.clipsToBounds = YES;
+    
+    //
+}
+
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+@end

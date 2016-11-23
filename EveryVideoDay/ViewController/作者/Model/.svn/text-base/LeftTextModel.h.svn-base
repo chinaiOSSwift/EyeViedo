@@ -1,0 +1,15 @@
+//
+//  LeftTextModel.h
+//  EveryVideoDay
+//
+//  Created by MS on 16/10/13.
+//  Copyright © 2016年 一杯清火茶. All rights reserved.
+//
+
+#import "JSONModel.h"
+
+@interface LeftTextModel : JSONModel
+
+@property (nonatomic,copy) NSString * text;//热门作者
+
+@end

@@ -1,0 +1,115 @@
+//
+//  FindSecondViewController.m
+//  EveryVideoDay
+//
+//  Created by qianfeng on 16/10/15.
+//  Copyright © 2016年 一杯清火茶. All rights reserved.
+//
+
+#import "FindSecondViewController.h"
+#import "FindSecondCell.h"
+#import "FindSecondModel+FindSecondNetWorkManager.h"
+#import "FindThirdViewController.h"
+
+@interface FindSecondViewController ()<UITableViewDelegate, UITableViewDataSource>
+
+//@property (nonatomic, strong) NSMutableArray * imageArray;
+//@property (nonatomic, strong) NSMutableArray * dataArray;
+//@property (nonatomic, strong) NSMutableArray * webArray;
+
+@end
+
+@implementation FindSecondViewController
+-(NSMutableArray *)imageArray{
+    if(!_imageArray){
+        _imageArray = [[NSMutableArray alloc]init];
+    }
+    return  _imageArray;
+}
+
+-(NSMutableArray *)dataArray{
+    if (!_dataArray){
+        _dataArray = [[NSMutableArray alloc]init];
+    }
+    return _dataArray;
+}
+
+-(NSMutableArray *)webArray{
+    if (!_webArray){
+        _webArray = [[NSMutableArray alloc]init];
+    }
+    return _webArray;
+}
+
+-(UITableView *)tableView{
+    if (!_tableView){
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_W, SCREEN_H) style:(UITableViewStyleGrouped)];
+        [_tableView registerNib:[UINib nibWithNibName:@"FindSecondCell" bundle:nil] forCellReuseIdentifier:@"FindSecondCell"];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.rowHeight = 200;
+        _tableView.autoresizesSubviews = NO;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.showsVerticalScrollIndicator = NO;
+        [self.view addSubview:_tableView];
+    }
+    return _tableView;
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.backgroundColor = [UIColor cyanColor];
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSArray * array = self.dataArray[section];
+    return [array count];
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString * cellID = @"FindSecondCell";
+    FindSecondCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
+    NSArray * array = self.dataArray[indexPath.section];
+    FindSecondModel * model = array[indexPath.row];
+    NSArray * array1 = self.imageArray[indexPath.section];
+    FindSecondModel * model1 = array1[indexPath.row];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:model1.feed]];
+    cell.titleLabel.text = model.title;
+    cell.CategoryLabel.text = model.category;
+    cell.ReleaseTimeLabel.text = model.releaseTime;
+    return cell;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    FindThirdViewController * FTC = [[FindThirdViewController alloc]init];
+    FTC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:FTC animated:YES];
+    NSArray * array = self.dataArray[indexPath.section];
+    FindSecondModel * model = array[indexPath.row];
+    NSArray * array1 = self.imageArray[indexPath.section];
+    FindSecondModel * model1 = array1[indexPath.row];
+    FTC.FTCDetialview = model1.feed;
+    FTC.FTCTitle = model.title;
+    FTC.FTCCategory = model.category;
+    FTC.FTCReleaseTime = model.releaseTime;
+    FTC.FTCPlayUrl = model.playUrl;
+    FTC.FTCblurred = model1.blurred;
+    FTC.FTCDescription = model.Description;
+}
+
+@end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

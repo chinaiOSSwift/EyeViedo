@@ -1,0 +1,21 @@
+//
+//  itemList3dataModel.m
+//  EveryVideoDay
+//
+//  Created by MS on 16/10/13.
+//  Copyright © 2016年 一杯清火茶. All rights reserved.
+//
+
+#import "itemList3dataModel.h"
+
+@implementation itemList3dataModel
+
++(BOOL)propertyIsOptional:(NSString *)propertyName{
+    return YES;
+}
+
++(JSONKeyMapper *)keyMapper{
+    return [[JSONKeyMapper alloc]initWithModelToJSONDictionary:@{@"Id":@"id",@"Description":@"description"}];
+}
+
+@end

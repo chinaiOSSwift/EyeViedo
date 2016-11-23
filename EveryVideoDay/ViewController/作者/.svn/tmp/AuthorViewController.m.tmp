@@ -1,0 +1,45 @@
+//
+//  AuthorViewController.m
+//  EveryVideoDay
+//
+//  Created by MS on 16/10/11.
+//  Copyright © 2016年 一杯清火茶. All rights reserved.
+//
+
+#import "AuthorViewController.h"
+
+#import "HotAuthor+HotAuthorNetWork.h"
+#import "HotAuthor.h"
+
+
+@interface AuthorViewController ()
+
+@end
+
+@implementation AuthorViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+   
+<<<<<<< .mine
+    [HotAuthor requestHotAuthordata:^(NSArray *hotAuthorArray, NSArray *leftTextArray, NSArray *videoHeaderArray, NSError *error) {
+        NSLog(@"%@作者",hotAuthorArray);
+        NSLog(@"%@做标题",leftTextArray);
+        NSLog(@"%@视频",videoHeaderArray);
+
+=======
+    [HotAuthor requestHotAuthordata:^(NSArray *hotAuthorArray, NSError *error) {
+//        NSLog(@"%@打印数组",hotAuthorArray);
+>>>>>>> .r16
+    }];
+    
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+
+@end

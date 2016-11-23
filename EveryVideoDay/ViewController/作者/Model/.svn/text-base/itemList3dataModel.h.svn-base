@@ -1,0 +1,30 @@
+//
+//  itemList3dataModel.h
+//  EveryVideoDay
+//
+//  Created by MS on 16/10/13.
+//  Copyright © 2016年 一杯清火茶. All rights reserved.
+//
+
+#import "JSONModel.h"
+
+@interface itemList3dataModel : JSONModel
+
+//一级界面
+@property (nonatomic,copy) NSString * category;//旅行
+@property (nonatomic,copy) NSString * title;//一个人的日本之...
+@property (nonatomic,copy) NSString * duration;// 时间
+
+//
+@property (nonatomic,copy) NSString * Id;//
+//
+
+//二级界面
+@property (nonatomic,copy) NSString * Description;//
+@property (nonatomic,retain) NSMutableDictionary * author;//作者信息
+@property (nonatomic,retain) NSMutableDictionary * consumption;//收藏分享...
+@property (nonatomic,retain) NSMutableDictionary * cover;//三个一样的图片
+@property (nonatomic,copy) NSString * playUrl;//播放地址
+@property (nonatomic,retain) NSMutableDictionary * webUrl;//两个播放的网址
+
+@end

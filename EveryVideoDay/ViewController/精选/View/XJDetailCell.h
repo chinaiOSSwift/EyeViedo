@@ -1,0 +1,54 @@
+//
+//  XJDetailCell.h
+//  EveryVideoDay
+//
+//  Created by qianfeng on 16/10/17.
+//  Copyright © 2016年 一杯清火茶. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "XJItemModelDic.h"
+#import <AVFoundation/AVFoundation.h>
+#import <AVKit/AVPlayerViewController.h>
+#import <MediaPlayer/MPMoviePlayerViewController.h>
+
+@protocol XJDetailCellDelegate <NSObject>
+
+- (void)presentPlayerController:(AVPlayerViewController *)playController;
+
+@end
+
+@interface XJDetailCell : UICollectionViewCell
+{
+    XJItemModelDic *modelA;
+}
+
+@property (weak, nonatomic) id<XJDetailCellDelegate> delegate;
+
+@property (weak, nonatomic) IBOutlet UIImageView *detailImage;
+
+@property (weak, nonatomic) IBOutlet UILabel *titleL;
+
+@property (weak, nonatomic) IBOutlet UILabel *categoryL;
+
+@property (weak, nonatomic) IBOutlet UIImageView *authorIcon;
+
+@property (weak, nonatomic) IBOutlet UILabel *authorName;
+
+@property (weak, nonatomic) IBOutlet UILabel *authorViedoNum;
+
+@property (weak, nonatomic) IBOutlet UILabel *authorDes;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *DesL;
+
+@property (weak, nonatomic) IBOutlet UILabel *collectionL;
+@property (weak, nonatomic) IBOutlet UILabel *shareL;
+
+@property (weak, nonatomic) IBOutlet UILabel *replyL;
+
+- (void)customWithXJItemModel:(XJItemModelDic *)model;
+
+@property(nonatomic, copy) NSString * playUrl;
+
+@end
